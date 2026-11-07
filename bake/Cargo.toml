@@ -7,4 +7,5 @@ publish = false
 [dependencies]
 bake = "0.20.1"
 bake-benchmark = "0.1.0"
+# SECURITY: The open-ended requirement can select a future major version on `cargo update`, but a compromised publisher could as easily ship a compatible release; `Cargo.lock` and `--locked` CI builds mean a new version only arrives through a reviewed lockfile change. Its `bake-agent-context` dependency uses the unmaintained `unsafe-libyaml` (RUSTSEC-2024-0449, informational) only to parse front matter of trusted agent-context files, and neither published crate depends on it.
 base-project = ">=0.1.7"

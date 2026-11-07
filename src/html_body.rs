@@ -44,6 +44,12 @@ where
     let mut out = HtmlWriter::with_capacity(sink, capacity)?;
     let renderer = async move {
         render(&mut out).await?;
+        // A renderer that abandoned a template and then ignored the refused writes must not end as a successful, truncated body.
+        if out.is_abandoned() {
+            return Err(io::Error::other(
+                "a template in the HTML body was cancelled or failed part-way; the body is incomplete",
+            ));
+        }
         out.flush().await
     };
     Ok(HtmlBody {

@@ -175,6 +175,7 @@ fn parse_element(input: ParseStream<'_>, nodes: &mut Vec<TemplateNode>) -> Resul
             let value: LitStr = input.parse().expect("peek established a string literal");
             nodes.push(TemplateNode::Literal(escape(&value.value())));
         } else {
+            // SECURITY: Other attributes accept dynamic values without validation, including URL attributes such as `href` and `src`, and attributes that client-side frameworks or SVG animation evaluate, such as `x-on:click`, `v-html`, or `animate` `values`. Validating those values is the caller's responsibility, as design/rendering.md requires; escaping only keeps them inside their quoted attribute.
             if lower.starts_with("on") || lower == "style" || lower == "srcdoc" {
                 return Err(syn::Error::new(
                     span,

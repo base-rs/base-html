@@ -264,3 +264,34 @@ fn capacity_wakes_nested_future_combinators() -> io::Result<()> {
         Ok(())
     })
 }
+
+#[test]
+fn abandoned_templates_end_the_body_with_an_error() -> io::Result<()> {
+    block_on(async {
+        let mut body = html_body(64, async |out| {
+            {
+                // The renderer gives up on a template that is waiting for data, then ignores the refused write.
+                let mut slow =
+                    Box::pin(html! { out; p title=(pending::<&str>().await) { "never" } });
+                let waker = noop_waker();
+                assert!(
+                    slow.as_mut()
+                        .poll(&mut Context::from_waker(&waker))
+                        .is_pending()
+                );
+            }
+            let _ = html! { out; p { "fallback" } }.await;
+            Ok(())
+        })?;
+        let error = poll_fn(|cx| Pin::new(&mut body).poll_frame(cx))
+            .await
+            .unwrap()
+            .unwrap_err();
+        assert!(
+            error.to_string().contains("the body is incomplete"),
+            "{error}"
+        );
+        assert!(body.is_end_stream());
+        Ok(())
+    })
+}

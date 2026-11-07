@@ -1,5 +1,10 @@
 # Releases
 
+## Unreleased
+
+- Refuse further writes to an `HtmlWriter` after a template using it is cancelled or fails part-way, so later escaped values cannot complete its open tag or attribute, and end an HTTP body with an error when its renderer abandoned a template; `HtmlWriter::is_abandoned` reports this state.
+- Document that responses must declare UTF-8, and that URL and framework-evaluated attributes need caller validation.
+
 ## v0.1.0
 
 - Refresh workspace dependencies and shared Base project guidance, including the benchmark and performance skills.

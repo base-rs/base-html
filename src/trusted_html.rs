@@ -9,6 +9,7 @@ pub struct TrustedHtml<'a>(&'a str);
 
 impl<'a> TrustedHtml<'a> {
     /// Trust an HTML fragment. This is a security decision, not a sanitization operation.
+    // SECURITY: This wraps any string, including untrusted input, for unescaped output. Construction is the explicit trust operation design/rendering.md requires, and `@raw` accepts only `TrustedHtml`; callers must establish that the markup is safe.
     pub const fn new(value: &'a str) -> Self {
         Self(value)
     }

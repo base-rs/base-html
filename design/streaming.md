@@ -10,7 +10,7 @@ Explicit flushing must publish the current buffered prefix before execution cont
 
 The HTTP body adapter must follow consumer demand without requiring a spawned rendering task or an unbounded queue. A slow consumer must stop further rendering once bounded pending output is exhausted. Dropping the body must drop its rendering future, including pending data acquisition. Output already handed to the consumer is not owned by the engine and is outside its buffering limit.
 
-Write and rendering errors must stop the rendering operation and propagate to the caller or body consumer. Previously published output may remain visible; a late rendering error must not be converted into a successful, silently truncated body. Dropping an unfinished writer must not implicitly flush or perform background work. Cancellation may leave a partially rendered document; restarting an entire interpolation is not transactional.
+Write and rendering errors must stop the rendering operation and propagate to the caller or body consumer. Previously published output may remain visible; a late rendering error must not be converted into a successful, silently truncated body. Dropping an unfinished writer must not implicitly flush or perform background work. Cancellation may leave a partially rendered document; restarting an entire interpolation is not transactional. After a template is cancelled or fails part-way, its writer must refuse further output, so that later escaped values cannot complete its open markup.
 
 ## Rationale
 

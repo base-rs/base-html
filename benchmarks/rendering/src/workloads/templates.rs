@@ -76,7 +76,7 @@ async fn escape_reference<W: AsyncWrite + Unpin>(
             '\'' => "&#39;",
             _ => continue,
         };
-        // Only already delimited safe spans bypass escaping; this is reference code, not user input trust.
+        // SECURITY: These slices bypass escaping, but each lies between the five escaped characters found above and so contains none of them; the input is generated benchmark text, and the preflight compares the output byte for byte with independently escaped output.
         out.write_trusted(TrustedHtml::new(&text[start..index]))
             .await?;
         out.write_literal(replacement).await?;

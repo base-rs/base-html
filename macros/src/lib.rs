@@ -21,11 +21,15 @@ pub fn html(input: TokenStream) -> TokenStream {
     let template = parse_macro_input!(input as template::Template);
     let destination = template.destination;
     let writer = proc_macro2::Ident::new("__base_html_writer", proc_macro2::Span::mixed_site());
+    let guard = proc_macro2::Ident::new("__base_html_guard", proc_macro2::Span::mixed_site());
     let body = template_node::compile(&template.nodes, &writer);
+    // The guard marks the writer abandoned unless the whole template completes, so a cancelled or failed template cannot leave an open tag or attribute for later output to complete.
     quote! {{
         async {
             let #writer = (#destination).by_ref();
+            let #guard = #writer.template_guard();
             #body
+            #guard.complete();
             ::std::result::Result::<(), ::std::io::Error>::Ok(())
         }
     }}
