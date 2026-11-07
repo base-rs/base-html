@@ -2,7 +2,7 @@
 // Copyright, 2026, by Samuel Williams.
 
 use crate::{BenchmarkConfig, Variant, Workload};
-use base_html::{AsyncWrite, HtmlWriter, TrustedHtml, html};
+use base_web_html::{AsyncWrite, HtmlWriter, TrustedHtml, html};
 use std::io;
 
 pub(super) const STATIC_PAGE: &str = "<!DOCTYPE html><html><head><title>Benchmark</title></head><body><h1>Static page</h1><p>Fixed &amp; escaped text</p></body></html>";

@@ -3,7 +3,7 @@
 
 #![cfg(feature = "http-body")]
 
-use base_html::{html, html_body};
+use base_web_html::{html, html_body};
 use futures::executor::block_on;
 use futures::task::noop_waker;
 use http_body::Body;

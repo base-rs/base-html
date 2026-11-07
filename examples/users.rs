@@ -1,7 +1,7 @@
 // Released under the MIT License.
 // Copyright, 2026, by Samuel Williams.
 
-use base_html::{AsyncWrite, BlockingWriter, HtmlWriter, html};
+use base_web_html::{AsyncWrite, BlockingWriter, HtmlWriter, html};
 use std::io;
 
 async fn user_row<W: AsyncWrite + Unpin>(out: &mut HtmlWriter<W>, name: &str) -> io::Result<()> {

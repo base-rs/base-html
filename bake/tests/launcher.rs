@@ -3,7 +3,7 @@
 
 #[test]
 fn discovers_and_runs_project_tasks() {
-    let output = std::process::Command::new(env!("CARGO_BIN_EXE_base-html-bake"))
+    let output = std::process::Command::new(env!("CARGO_BIN_EXE_base-web-html-bake"))
         .arg("--list")
         .output()
         .unwrap();

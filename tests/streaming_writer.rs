@@ -1,7 +1,7 @@
 // Released under the MIT License.
 // Copyright, 2026, by Samuel Williams.
 
-use base_html::{AsyncWrite, BlockingWriter, HtmlWriter, TrustedHtml, html};
+use base_web_html::{AsyncWrite, BlockingWriter, HtmlWriter, TrustedHtml, html};
 use futures::executor::block_on;
 use futures::io::AsyncWriteExt;
 use futures::task::noop_waker;

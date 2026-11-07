@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+
+- Rename the crates to `base-web-html` and `base-web-html-macros`, joining the `base-web-*` family of Base web crates; `base-html` and `base-html-macros` 0.1.x remain available but receive no further releases.
+
 ## v0.1.1
 
 - Refuse further writes to an `HtmlWriter` after a template using it is cancelled or fails part-way, so later escaped values cannot complete its open tag or attribute, and end an HTTP body with an error when its renderer abandoned a template; `HtmlWriter::is_abandoned` reports this state.

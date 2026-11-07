@@ -1,13 +1,15 @@
-# `base-html`
+# `base-web-html`
 
 An experimental, async-first Rust HTML template engine focused on streaming and reliable agent-authored code. Templates compile into escaped writes, with bounded buffering and no runtime parser, DOM, or intermediate component strings.
 
+This crate was published as `base-html` up to version 0.1.1. It is now part of the `base-web-*` family of Base web crates; `base-html` receives no further releases.
+
 ## Usage
 
-Add the crate with `cargo add base-html`, or run `cargo run --example users` from this checkout.
+Add the crate with `cargo add base-web-html`, or run `cargo run --example users` from this checkout.
 
 ```rust
-use base_html::{BlockingWriter, HtmlWriter, html};
+use base_web_html::{BlockingWriter, HtmlWriter, html};
 
 async fn render_users() -> std::io::Result<Vec<u8>> {
     let names = ["Ada", "Grace & friends"];
@@ -46,7 +48,7 @@ See [releases.md](releases.md).
 
 ## Contributing
 
-Please open an issue or pull request on [GitHub](https://github.com/base-rs/base-html).
+Please open an issue or pull request on [GitHub](https://github.com/base-rs/base-web-html).
 
 Install the [Bake launcher](https://github.com/base-rs/bake) and run `cargo bake test`. Use `cargo bake test:coverage --all-targets true --all-features true` for the shared source-region coverage gate including HTTP streaming. See the [benchmark suite](benchmarks/rendering/readme.md) for parameterized workloads and collection commands, and the [performance record](context/performance.md) for historical observations. The older `cargo bench --bench render` remains an exploratory microbenchmark, not a controlled measurement campaign.
 

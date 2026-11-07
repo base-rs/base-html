@@ -6,7 +6,7 @@ mod templates;
 
 use crate::{BenchmarkConfig, Corpus, Variant, Workload};
 use base_benchmark::{CurrentProcess, Interval, Metric, ProcessRecord, ResourceSource, Unit};
-use base_html::{HtmlWriter, html_body};
+use base_web_html::{HtmlWriter, html_body};
 use futures::executor::block_on;
 use http_body::Body;
 use output::{OutputSink, OutputStats};
@@ -18,7 +18,7 @@ use std::task::Poll;
 use std::time::Instant;
 
 /// The stable workload identity in every record.
-pub(crate) const WORKLOAD: &str = "base-html/rendering";
+pub(crate) const WORKLOAD: &str = "base-web-html/rendering";
 
 pub(crate) fn run(config: &BenchmarkConfig) -> io::Result<ProcessRecord> {
     run_with(config, CurrentProcess, |preflight, text| {

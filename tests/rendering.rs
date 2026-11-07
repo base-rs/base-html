@@ -1,7 +1,7 @@
 // Released under the MIT License.
 // Copyright, 2026, by Samuel Williams.
 
-use base_html::{AsyncWrite, BlockingWriter, HtmlText, HtmlWriter, TrustedHtml, html};
+use base_web_html::{AsyncWrite, BlockingWriter, HtmlText, HtmlWriter, TrustedHtml, html};
 use futures::executor::block_on;
 use std::borrow::Cow;
 use std::cell::Cell;
@@ -134,11 +134,11 @@ async_test!(special_contexts_only_emit_static_bodies, {
 async_test!(future_is_lazy_and_values_are_evaluated_once_in_order, {
     let calls = Cell::new(0);
     let mut out = writer(Vec::new());
-    let __base_html_writer = "user variable";
+    let __base_web_html_writer = "user variable";
     let future = html! { { calls.set(calls.get() + 1); &mut out };
         p data-first=({ calls.set(calls.get() + 1); calls.get() }) {
             ({ calls.set(calls.get() + 1); calls.get() })
-            (__base_html_writer)
+            (__base_web_html_writer)
         }
     };
     assert_eq!(calls.get(), 0);
