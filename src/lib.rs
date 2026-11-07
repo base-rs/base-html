@@ -38,4 +38,6 @@ pub use html_body::{HtmlBody, html_body};
 pub use html_body_sink::HtmlBodySink;
 pub use html_text::HtmlText;
 pub use html_writer::HtmlWriter;
+#[doc(hidden)]
+pub use html_writer::TemplateGuard;
 pub use trusted_html::TrustedHtml;

@@ -114,6 +114,7 @@ impl<'ast> Visit<'ast> for Check {
     }
 
     // Macro arguments are expanded later and cannot be checked as code, so any of these keywords in them is rejected, even inside a loop or closure there.
+    // SECURITY: Control flow produced by a macro's own expansion, including a `macro_rules!` defined inside the expression, cannot be checked here. This is not a weakness: template source is trusted application code, and the check guards against mistakes, not attackers. The limitation is documented in context/templates.md.
     fn visit_macro(&mut self, node: &'ast syn::Macro) {
         self.scan(node.tokens.clone());
     }

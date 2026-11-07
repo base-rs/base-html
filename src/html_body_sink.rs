@@ -22,6 +22,7 @@ pub(crate) struct BodyState {
 }
 
 impl AsyncWrite for HtmlBodySink {
+    // SECURITY: The body mutex is held while a replaced waker is dropped, so a panicking waker drop would poison it. This is not exploitable: wakers are executor code, which neither interpolated values nor a consumer's timing can make panic, and the lock otherwise only moves `Option` values.
     fn poll_write(
         self: Pin<&mut Self>,
         cx: &mut Context<'_>,

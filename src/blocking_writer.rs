@@ -9,6 +9,7 @@ use std::task::{Context, Poll};
 /// Explicitly adapt a synchronous destination to the async rendering interface.
 ///
 /// Writes run immediately on the polling thread. This is useful for memory buffers and command-line output; files or sockets can block an executor. It does not offload work, spawn a task, or make a blocking destination nonblocking.
+// SECURITY: A slow peer behind a blocking socket can stall the polling executor thread. This is not a weakness of the library: the adapter is an explicit, documented opt-in for potentially blocking destinations, and network output should use an async destination or the HTTP body.
 pub struct BlockingWriter<W> {
     inner: W,
 }

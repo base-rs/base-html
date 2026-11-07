@@ -108,6 +108,7 @@ impl BenchmarkConfig {
     }
 
     /// Reject invalid sizes and meaningless combinations before allocating or measuring.
+    // SECURITY: Sizes and counts have no upper limit, so huge values can exhaust memory or run indefinitely, sometimes aborting rather than returning an error. Arguments come only from the operator and the repository's scenario metadata, who can already run arbitrary code here, and every failure exits without a record.
     pub fn validate(&self) -> io::Result<()> {
         if self.iterations == 0 || self.buffer_bytes == 0 {
             return Err(invalid("iterations and buffer-bytes must be nonzero"));

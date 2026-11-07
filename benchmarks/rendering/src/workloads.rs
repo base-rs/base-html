@@ -75,6 +75,7 @@ fn run_with(
     let mut sample = interval
         .finish(config.iterations)?
         .with(Metric::total(
+            // SECURITY: These totals are unchecked, but each iteration verifies it produced `expected.len()` bytes, so wrapping would need more than 2^64 rendered bytes, and the parameters are trusted operator arguments.
             "output_bytes",
             Unit::Bytes,
             expected.len() as u64 * config.iterations,

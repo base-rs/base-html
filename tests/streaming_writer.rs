@@ -277,3 +277,95 @@ fn zero_capacity_is_rejected_and_blocking_adapter_can_close() -> io::Result<()> 
         Ok(())
     })
 }
+
+#[test]
+fn cancelled_templates_abandon_the_writer() -> io::Result<()> {
+    let sink = TestSink::default();
+    sink.0.borrow_mut().pause_after = Some(8);
+    let mut out = HtmlWriter::with_capacity(sink.clone(), 8)?;
+    let user = "x onmouseover=alert(1) y";
+    let waker = noop_waker();
+    let mut cx = Context::from_waker(&waker);
+    {
+        // The destination stalls inside the attribute, as a slow client could arrange.
+        let mut template = Box::pin(html! { out; a href="/profile" title=(user) { "Profile" } });
+        assert!(template.as_mut().poll(&mut cx).is_pending());
+    }
+    assert!(out.is_abandoned());
+    sink.0.borrow_mut().pause_after = None;
+    let error = block_on(html! { out; img alt=(user); }).unwrap_err();
+    assert!(
+        error.to_string().contains("cancelled or failed part-way"),
+        "{error}"
+    );
+    assert!(block_on(out.write_text("text")).is_err());
+    // The incomplete prefix can still be published, but nothing completes the open attribute.
+    block_on(out.flush())?;
+    assert!(
+        !sink
+            .0
+            .borrow()
+            .bytes
+            .windows(4)
+            .any(|window| window == b"<img")
+    );
+    Ok(())
+}
+
+async fn section(
+    out: &mut HtmlWriter<TestSink>,
+    sink: &TestSink,
+    waker: &std::task::Waker,
+) -> io::Result<()> {
+    // A component gives up on a slow nested template and renders a fallback instead. The destination stalls only while the nested template is polled.
+    let written = sink.0.borrow().bytes.len();
+    sink.0.borrow_mut().pause_after = Some(written);
+    {
+        let mut slow = Box::pin(html! { out; p title=("pending") { "slow" } });
+        let mut cx = Context::from_waker(waker);
+        assert!(slow.as_mut().poll(&mut cx).is_pending());
+    }
+    sink.0.borrow_mut().pause_after = None;
+    html! { out; p { "Section unavailable" } }.await
+}
+
+#[test]
+fn a_component_cannot_continue_after_abandoning_a_nested_template() -> io::Result<()> {
+    let sink = TestSink::default();
+    let mut out = HtmlWriter::with_capacity(sink.clone(), 4)?;
+    let waker = noop_waker();
+    let error = block_on(html! { out; div { @render section(&sink, &waker); } }).unwrap_err();
+    assert!(
+        error.to_string().contains("cancelled or failed part-way"),
+        "{error}"
+    );
+    assert!(out.is_abandoned());
+    assert!(
+        !sink
+            .0
+            .borrow()
+            .bytes
+            .windows(7)
+            .any(|window| window == b"Section")
+    );
+    Ok(())
+}
+
+#[test]
+fn failed_templates_abandon_the_writer_and_completed_ones_do_not() -> io::Result<()> {
+    let mut out = HtmlWriter::new(TestSink::default());
+    block_on(html! { out; p { "first" } })?;
+    block_on(html! { out; p { "second" } })?;
+    assert!(!out.is_abandoned());
+    let oversized = "x".repeat(600);
+    assert!(block_on(html! { out; p { (out_of_range(&oversized)?) } }).is_err());
+    assert!(out.is_abandoned());
+    Ok(())
+}
+
+fn out_of_range(value: &str) -> io::Result<&str> {
+    Err(io::Error::new(
+        io::ErrorKind::InvalidInput,
+        format!("{} bytes", value.len()),
+    ))
+}
