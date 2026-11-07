@@ -4,7 +4,7 @@
 //! Compiled HTML templates that write directly into a caller-selected destination.
 //!
 //! ```
-//! use base_html::{BlockingWriter, HtmlWriter, html};
+//! use base_web_html::{BlockingWriter, HtmlWriter, html};
 //!
 //! # futures::executor::block_on(async {
 //! let mut out = HtmlWriter::new(BlockingWriter::new(Vec::new()));
@@ -29,7 +29,7 @@ mod html_text;
 mod html_writer;
 mod trusted_html;
 
-pub use base_html_macros::html;
+pub use base_web_html_macros::html;
 pub use blocking_writer::BlockingWriter;
 pub use futures_io::AsyncWrite;
 #[cfg(feature = "http-body")]

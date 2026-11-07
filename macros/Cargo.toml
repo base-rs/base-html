@@ -1,10 +1,10 @@
 [package]
-name = "base-html-macros"
+name = "base-web-html-macros"
 version = "0.1.1"
 edition = "2024"
 license = "MIT"
-description = "Compile-time template syntax for base-html"
-repository = "https://github.com/base-rs/base-html"
+description = "Compile-time template syntax for base-web-html"
+repository = "https://github.com/base-rs/base-web-html"
 readme = "readme.md"
 rust-version = "1.88"
 keywords = ["html", "template", "macro"]

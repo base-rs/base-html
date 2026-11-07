@@ -5,7 +5,7 @@ There is one async-first rendering interface: `html!` returns a future, `HtmlWri
 ## Progressive rendering
 
 ```rust
-use base_html::{AsyncWrite, HtmlWriter, html};
+use base_web_html::{AsyncWrite, HtmlWriter, html};
 
 async fn page<W: AsyncWrite + Unpin>(out: &mut HtmlWriter<W>) -> std::io::Result<()> {
     html! { out;
@@ -38,7 +38,7 @@ Enable the optional `http-body` Cargo feature. The result implements the standar
 ```rust
 #[cfg(feature = "http-body")]
 fn response() -> std::io::Result<impl http_body::Body<Data = bytes::Bytes, Error = std::io::Error>> {
-    use base_html::{html, html_body};
+    use base_web_html::{html, html_body};
 
     html_body(8192, async |out| {
         html! { out;

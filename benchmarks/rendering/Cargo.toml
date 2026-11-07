@@ -1,15 +1,15 @@
 [package]
-name = "base-html-benchmark-rendering"
+name = "base-web-html-benchmark-rendering"
 version = "0.0.0"
 edition = "2024"
 publish = false
 license = "MIT"
-description = "Reproducible rendering and streaming workloads for base-html"
+description = "Reproducible rendering and streaming workloads for base-web-html"
 
 [dependencies]
 # Records and `Interval` only; the runner is not linked into the measured binary.
 base-benchmark = { version = "0.1.0", default-features = false }
-base-html = { path = "../..", features = ["http-body"] }
+base-web-html = { path = "../..", features = ["http-body"] }
 futures = { version = "0.3.34", features = ["executor"] }
 http-body = "1.1.0"
 serde = { version = "1", features = ["derive"] }

@@ -5,7 +5,7 @@ Templates live in ordinary `.rs` files. The `html!` macro takes an `HtmlWriter` 
 ## Elements and values
 
 ```rust
-use base_html::{BlockingWriter, HtmlWriter, html};
+use base_web_html::{BlockingWriter, HtmlWriter, html};
 
 async fn greeting_page() -> std::io::Result<Vec<u8>> {
     let mut out = HtmlWriter::new(BlockingWriter::new(Vec::new()));
@@ -42,7 +42,7 @@ Bindings inside a nested element are scoped to the surrounding generated Rust co
 ## Components
 
 ```rust
-use base_html::{AsyncWrite, BlockingWriter, HtmlWriter, html};
+use base_web_html::{AsyncWrite, BlockingWriter, HtmlWriter, html};
 use std::io;
 
 async fn greeting<W: AsyncWrite + Unpin>(out: &mut HtmlWriter<W>, name: &str) -> io::Result<()> {
@@ -56,7 +56,7 @@ async fn page() -> io::Result<Vec<u8>> {
 }
 ```
 
-Components write to the same destination without first allocating their own strings. A component's ordinary Rust argument and return types are checked by the compiler. The macro does not refer to a hard-coded `base_html` crate path, so dependency renaming works.
+Components write to the same destination without first allocating their own strings. A component's ordinary Rust argument and return types are checked by the compiler. The macro does not refer to a hard-coded `base_web_html` crate path, so dependency renaming works.
 
 ## Escaping and trust
 
@@ -68,10 +68,10 @@ Use `@raw(TrustedHtml::new(fragment));` only for markup you have independently e
 
 ## Output and performance
 
-`HtmlWriter<W>` accepts `futures_io::AsyncWrite + Unpin`, re-exported as `base_html::AsyncWrite`. It owns a bounded output buffer (8 KiB by default), combines adjacent static fragments at compile time, and escapes strings incrementally. `BlockingWriter` adapts synchronous destinations but runs their operations on the polling thread; it does not make blocking files or sockets nonblocking. A pinned boxed destination can adapt an underlying writer that is not `Unpin`.
+`HtmlWriter<W>` accepts `futures_io::AsyncWrite + Unpin`, re-exported as `base_web_html::AsyncWrite`. It owns a bounded output buffer (8 KiB by default), combines adjacent static fragments at compile time, and escapes strings incrementally. `BlockingWriter` adapts synchronous destinations but runs their operations on the polling thread; it does not make blocking files or sockets nonblocking. A pinned boxed destination can adapt an underlying writer that is not `Unpin`.
 
 Full output buffers drain automatically. Template completion itself does not flush a partial buffer; use `@flush`, `out.flush().await`, or `out.finish().await`. Dropping a writer discards pending output without I/O. A write or formatting error stops rendering and may leave a partial document; rendering is not transactional. The original destination error is preserved. Components should return `io::Result<()>`; application-specific errors can be mapped to I/O errors at that boundary in this prototype.
 
-The [streaming guide](https://github.com/base-rs/base-html/blob/main/context/streaming.md) describes backpressure, cancellation, bounded formatting, and the optional HTTP response body. No executor, `Send`, or `'static` constraint is imposed on core rendering. Whether a concrete rendering future or body is `Send` depends on its captures, destination, and text implementations; generic `HtmlText` alone does not promise a `Send` future.
+The [streaming guide](https://github.com/base-rs/base-web-html/blob/main/context/streaming.md) describes backpressure, cancellation, bounded formatting, and the optional HTTP response body. No executor, `Send`, or `'static` constraint is imposed on core rendering. Whether a concrete rendering future or body is `Send` depends on its captures, destination, and text implementations; generic `HtmlText` alone does not promise a `Send` future.
 
-The [benchmark suite](https://github.com/base-rs/base-html/tree/main/benchmarks/rendering) provides parameterized static-page, component-list, escaping, and HTTP-body workloads with machine-readable records. The older `cargo bench --bench render` remains an exploratory four-user microbenchmark. See [Performance](https://github.com/base-rs/base-html/blob/main/context/performance.md) for historical measurements and their limitations; neither harness establishes improved agent outcomes.
+The [benchmark suite](https://github.com/base-rs/base-web-html/tree/main/benchmarks/rendering) provides parameterized static-page, component-list, escaping, and HTTP-body workloads with machine-readable records. The older `cargo bench --bench render` remains an exploratory four-user microbenchmark. See [Performance](https://github.com/base-rs/base-web-html/blob/main/context/performance.md) for historical measurements and their limitations; neither harness establishes improved agent outcomes.

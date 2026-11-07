@@ -147,49 +147,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "46f2f8db06d87ff80f4f96e56336afcb338b96b444ee8de7fe8919601e8de9b9"
 
 [[package]]
-name = "base-html"
-version = "0.1.1"
-dependencies = [
- "base-html-macros",
- "bytes",
- "futures",
- "futures-io",
- "http-body",
- "trybuild",
-]
-
-[[package]]
-name = "base-html-bake"
-version = "0.0.0"
-dependencies = [
- "bake",
- "bake-benchmark",
- "base-project",
-]
-
-[[package]]
-name = "base-html-benchmark-rendering"
-version = "0.0.0"
-dependencies = [
- "base-benchmark",
- "base-html",
- "futures",
- "http-body",
- "serde",
- "serde_json",
- "tempfile",
-]
-
-[[package]]
-name = "base-html-macros"
-version = "0.1.1"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.119",
-]
-
-[[package]]
 name = "base-markdown"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -221,6 +178,49 @@ name = "base-security"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0cafbfb3e7e5ce421ad36126cde1382cf6e5c994e17ca25701bc8a94fe24650e"
+
+[[package]]
+name = "base-web-html"
+version = "0.1.1"
+dependencies = [
+ "base-web-html-macros",
+ "bytes",
+ "futures",
+ "futures-io",
+ "http-body",
+ "trybuild",
+]
+
+[[package]]
+name = "base-web-html-bake"
+version = "0.0.0"
+dependencies = [
+ "bake",
+ "bake-benchmark",
+ "base-project",
+]
+
+[[package]]
+name = "base-web-html-benchmark-rendering"
+version = "0.0.0"
+dependencies = [
+ "base-benchmark",
+ "base-web-html",
+ "futures",
+ "http-body",
+ "serde",
+ "serde_json",
+ "tempfile",
+]
+
+[[package]]
+name = "base-web-html-macros"
+version = "0.1.1"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
 
 [[package]]
 name = "base64"

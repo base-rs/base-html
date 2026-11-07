@@ -1,7 +1,7 @@
 // Released under the MIT License.
 // Copyright, 2026, by Samuel Williams.
 
-use base_html::{html, html_body};
+use base_web_html::{html, html_body};
 use http_body::Body;
 use std::future::poll_fn;
 use std::io::{self, Write};

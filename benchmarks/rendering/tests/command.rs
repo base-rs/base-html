@@ -3,7 +3,7 @@
 
 #![cfg(unix)]
 
-use base_html_benchmark_rendering::{BenchmarkConfig, command, run};
+use base_web_html_benchmark_rendering::{BenchmarkConfig, command, run};
 use std::io::{self, Write};
 use std::process::{Command, ExitCode};
 
@@ -139,7 +139,7 @@ fn output_errors_and_diagnostic_errors_do_not_change_failure_status() {
 #[test]
 fn binary_emits_one_record_or_exits_unsuccessfully() {
     for workload in ["static", "list", "escape", "http"] {
-        let output = Command::new(env!("CARGO_BIN_EXE_base-html-benchmark-rendering"))
+        let output = Command::new(env!("CARGO_BIN_EXE_base-web-html-benchmark-rendering"))
             .args([
                 "--workload",
                 workload,
@@ -162,7 +162,7 @@ fn binary_emits_one_record_or_exits_unsuccessfully() {
         assert_eq!(String::from_utf8_lossy(&output.stdout).lines().count(), 1);
         let _: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
     }
-    let output = Command::new(env!("CARGO_BIN_EXE_base-html-benchmark-rendering"))
+    let output = Command::new(env!("CARGO_BIN_EXE_base-web-html-benchmark-rendering"))
         .arg("--bad")
         .output()
         .unwrap();
@@ -175,10 +175,10 @@ fn binary_emits_one_record_or_exits_unsuccessfully() {
 fn shared_runner_smokes_every_scenario() {
     use base_benchmark::Workspace;
     let workspace = Workspace::new(concat!(env!("CARGO_MANIFEST_DIR"), "/Cargo.toml"));
-    let package = Some("base-html-benchmark-rendering");
+    let package = Some("base-web-html-benchmark-rendering");
     let scenarios = workspace.suite(package).unwrap().scenarios;
     let directory = tempfile::tempdir().unwrap();
-    let binary = std::path::Path::new(env!("CARGO_BIN_EXE_base-html-benchmark-rendering"));
+    let binary = std::path::Path::new(env!("CARGO_BIN_EXE_base-web-html-benchmark-rendering"));
     let campaigns = workspace
         .smoke_executable(
             package,

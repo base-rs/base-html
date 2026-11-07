@@ -3,7 +3,7 @@
 
 use super::*;
 use base_benchmark::Measurement;
-use base_html::AsyncWrite;
+use base_web_html::AsyncWrite;
 use futures::task::{ArcWake, waker};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};

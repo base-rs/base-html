@@ -1,4 +1,4 @@
-# `base-html-benchmark-rendering`
+# `base-web-html-benchmark-rendering`
 
 A private workspace package for rendering, escaping, and pull-body streaming experiments. It compares the engine with equivalent handwritten operations, not with a competing template engine. No runtime library depends on this package. The benchmark enables the library's HTTP feature; workspace-wide tests therefore unify it. CI separately checks the library without that feature.
 
@@ -7,7 +7,7 @@ The workload binary measures one configuration and writes one [`base-benchmark`]
 ## Quick validation
 
 ```sh
-cargo test -p base-html-benchmark-rendering --locked
+cargo test -p base-web-html-benchmark-rendering --locked
 cargo bake benchmark:smoke
 ```
 
