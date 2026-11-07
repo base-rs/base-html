@@ -1,5 +1,5 @@
 error: dynamic event-handler, style, and srcdoc attributes are not supported
- --> tests/ui/event_attribute.rs:6:33
+ --> tests/ui/event_attribute.rs:9:33
   |
-6 |     let _ = html! { out; button ONCLICK=(value) { "Click" } };
+9 |     let _ = html! { out; button ONCLICK=(value) { "Click" } };
   |                                 ^^^^^^^

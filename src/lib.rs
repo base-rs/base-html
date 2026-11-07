@@ -17,7 +17,6 @@
 //! # }).unwrap();
 //! ```
 //!
-
 #![doc = include_str!("../context/templates.md")]
 #![doc = include_str!("../context/streaming.md")]
 

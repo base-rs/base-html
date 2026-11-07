@@ -37,7 +37,7 @@ Prepare a release with `cargo bake cargo:release:patch` (or `minor`, `major`, or
 
 ## Releases
 
-See [releases.md](releases.md) for the development history. No releases have been published yet.
+See [releases.md](releases.md).
 
 ## See Also
 

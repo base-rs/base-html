@@ -4,7 +4,6 @@
 //! Workloads for in-process HTML rendering and pull-body streaming, not a network benchmark.
 //!
 //! Each process emits one [`base_benchmark::ProcessRecord`]. Collection, rounds, controls, and summaries come from `base-benchmark`.
-
 mod benchmark_config;
 mod workloads;
 
