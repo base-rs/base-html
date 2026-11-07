@@ -1,0 +1,5 @@
+error: this element only supports static string literals; dynamic HTML escaping is not safe in this context
+ --> tests/ui/script_interpolation.rs:6:35
+  |
+6 |     let _ = html! { out; script { (value) } };
+  |                                   ^

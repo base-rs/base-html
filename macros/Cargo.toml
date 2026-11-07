@@ -1,0 +1,20 @@
+[package]
+name = "base-html-macros"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "Compile-time template syntax for base-html"
+repository = "https://github.com/base-rs/base-html"
+readme = "readme.md"
+rust-version = "1.88"
+keywords = ["html", "template", "macro"]
+categories = ["template-engine"]
+include = ["src/**", "Cargo.toml", "readme.md", "license.md"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1"
+quote = "1"
+syn = { version = "2", features = ["full", "visit"] }

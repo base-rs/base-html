@@ -1,0 +1,14 @@
+error[E0308]: mismatched types
+ --> tests/ui/raw_requires_trust.rs:5:31
+  |
+5 |     let _ = html! { out; @raw("<b>not explicitly trusted</b>"); };
+  |             ------------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^----
+  |             |                 |
+  |             |                 expected `TrustedHtml<'_>`, found `&str`
+  |             arguments to this method are incorrect
+  |
+note: method defined here
+ --> src/html_writer.rs
+  |
+  |     pub async fn write_trusted(&mut self, value: TrustedHtml<'_>) -> io::Result<()> {
+  |                  ^^^^^^^^^^^^^

@@ -1,0 +1,42 @@
+[package]
+name = "base-html-benchmark-rendering"
+version = "0.0.0"
+edition = "2024"
+publish = false
+license = "MIT"
+description = "Reproducible rendering and streaming workloads for base-html"
+
+[dependencies]
+# Records and `Interval` only; the runner is not linked into the measured binary.
+base-benchmark = { version = "0.1.0", default-features = false }
+base-html = { path = "../..", features = ["http-body"] }
+futures = { version = "0.3.34", features = ["executor"] }
+http-body = "1.1.0"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+# The runner, for the smoke test that drives this binary through the shared collector.
+base-benchmark = "0.1.0"
+tempfile = "3.27.0"
+
+# Scenarios for `cargo bake benchmark:*` and the `base-benchmark` command. Every scenario compares the engine with the handwritten reference in each round.
+[package.metadata.base-benchmark]
+smoke-arguments = ["--iterations", "3", "--warmup", "1"]
+variants = [{ name = "reference", arguments = ["--variant", "reference"] }, { name = "engine", arguments = ["--variant", "engine"] }]
+
+[[package.metadata.base-benchmark.scenario]]
+name = "static"
+arguments = ["--workload", "static"]
+
+[[package.metadata.base-benchmark.scenario]]
+name = "list"
+arguments = ["--workload", "list", "--items", "32", "--text-bytes", "64", "--corpus", "unicode"]
+
+[[package.metadata.base-benchmark.scenario]]
+name = "escape"
+arguments = ["--workload", "escape", "--text-bytes", "4096", "--corpus", "escaped"]
+
+[[package.metadata.base-benchmark.scenario]]
+name = "http"
+arguments = ["--workload", "http", "--items", "32", "--text-bytes", "64", "--buffer-bytes", "1024", "--consumer-yields", "1"]

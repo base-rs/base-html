@@ -1,0 +1,5 @@
+error: expected @for, @if, @let, @render, @raw, @doctype, or @flush
+ --> tests/ui/unknown_directive.rs:5:27
+  |
+5 |     let _ = html! { out; @unknown; };
+  |                           ^^^^^^^

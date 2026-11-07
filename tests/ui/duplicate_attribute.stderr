@@ -1,0 +1,5 @@
+error: duplicate HTML attribute
+ --> tests/ui/duplicate_attribute.rs:5:40
+  |
+5 |     let _ = html! { out; p class="one" CLASS="two" {} };
+  |                                        ^^^^^
