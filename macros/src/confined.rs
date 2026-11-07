@@ -4,7 +4,6 @@
 //! Template expressions must finish where they start.
 //!
 //! Each expression is spliced into the generated rendering code. A `return`, or a `break` or `continue` that leaves the expression, would skip the template's remaining static markup, such as a closing quote or tag, and the following escaped text could then be parsed as markup or attributes. `?` remains allowed: it ends rendering with an error, which callers already treat as an incomplete document.
-
 use syn::visit::{self, Visit};
 use syn::{Expr, Label, Lifetime, Result};
 

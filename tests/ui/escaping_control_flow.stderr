@@ -1,5 +1,5 @@
 error: `continue` cannot leave a template expression; it would skip the template's remaining markup
- --> tests/ui/escaping_control_flow.rs:6:87
+ --> tests/ui/escaping_control_flow.rs:9:87
   |
-6 |     let _ = html! { out; ul { @for value in values { li title=({ if value == "skip" { continue; } value }) { (value) } } } };
+9 |     let _ = html! { out; ul { @for value in values { li title=({ if value == "skip" { continue; } value }) { (value) } } } };
   |                                                                                       ^^^^^^^^

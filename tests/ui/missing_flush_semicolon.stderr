@@ -1,7 +1,7 @@
 error: expected `;`
- --> tests/ui/missing_flush_semicolon.rs:5:13
+ --> tests/ui/missing_flush_semicolon.rs:8:13
   |
-5 |     let _ = html! { out; @flush };
+8 |     let _ = html! { out; @flush };
   |             ^^^^^^^^^^^^^^^^^^^^^
   |
   = note: this error originates in the macro `html` (in Nightly builds, run with -Z macro-backtrace for more info)

@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.1.0
 
 - Refresh workspace dependencies and shared Base project guidance, including the benchmark and performance skills.
 - Add a private, parameterized benchmark suite with static, component-list, escaping, and HTTP-body workloads, and independent correctness preflights. Collection, controls, and summaries use the shared `base-benchmark` tooling through `benchmark:*` Bake tasks, with no Python.

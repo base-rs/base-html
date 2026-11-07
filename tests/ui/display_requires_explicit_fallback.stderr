@@ -1,13 +1,13 @@
 error[E0277]: the trait bound `CustomDisplay: HtmlText` is not satisfied
-  --> tests/ui/display_requires_explicit_fallback.rs:13:13
+  --> tests/ui/display_requires_explicit_fallback.rs:16:13
    |
-13 |     let _ = html! { out; (CustomDisplay) };
+16 |     let _ = html! { out; (CustomDisplay) };
    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ unsatisfied trait bound
    |
 help: the trait `HtmlText` is not implemented for `CustomDisplay`
-  --> tests/ui/display_requires_explicit_fallback.rs:3:1
+  --> tests/ui/display_requires_explicit_fallback.rs:6:1
    |
- 3 | struct CustomDisplay;
+ 6 | struct CustomDisplay;
    | ^^^^^^^^^^^^^^^^^^^^
    = help: the following other types implement trait `HtmlText`:
              &T

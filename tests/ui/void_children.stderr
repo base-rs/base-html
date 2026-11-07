@@ -1,5 +1,5 @@
 error: void elements must end with `;` and cannot have children
- --> tests/ui/void_children.rs:5:26
+ --> tests/ui/void_children.rs:8:26
   |
-5 |     let _ = html! { out; input { "child" } };
+8 |     let _ = html! { out; input { "child" } };
   |                          ^^^^^
