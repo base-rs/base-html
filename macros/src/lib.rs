@@ -15,7 +15,7 @@ mod tests;
 
 /// Compile a structurally balanced HTML template into escaped writes.
 ///
-/// The first argument is an `HtmlWriter`, followed by `;` and template content. The macro returns a borrowing future producing `std::io::Result<()>`; await it to render. It supports native awaited expressions, async component calls, and explicit `@flush;` boundaries. See the `base-web-html` crate's syntax guide for the full language.
+/// The first argument is an `HtmlWriter`, followed by `;` and template content. The macro returns a borrowing future producing `std::io::Result<()>`; await it to render. It supports native awaited expressions, async component calls, and explicit `@flush;` boundaries. See the [Template Syntax and Rendering](https://github.com/base-rs/base-web-html/blob/main/context/templates.md) guide for the full language.
 #[proc_macro]
 pub fn html(input: TokenStream) -> TokenStream {
     let template = parse_macro_input!(input as template::Template);
