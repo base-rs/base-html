@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.2.0
 
 - Rename the crates to `base-web-html` and `base-web-html-macros`, joining the `base-web-*` family of Base web crates; `base-html` and `base-html-macros` 0.1.x remain available but receive no further releases.
 

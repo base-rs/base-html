@@ -181,7 +181,7 @@ checksum = "0cafbfb3e7e5ce421ad36126cde1382cf6e5c994e17ca25701bc8a94fe24650e"
 
 [[package]]
 name = "base-web-html"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "base-web-html-macros",
  "bytes",
@@ -215,7 +215,7 @@ dependencies = [
 
 [[package]]
 name = "base-web-html-macros"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "proc-macro2",
  "quote",
