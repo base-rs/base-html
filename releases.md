@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+
+- Link to the template and streaming guides from the API documentation instead of including them, and compile the guide and readme examples as tests.
+
 ## v0.2.0
 
 - Rename the crates to `base-web-html` and `base-web-html-macros`, joining the `base-web-*` family of Base web crates; `base-html` and `base-html-macros` 0.1.x remain available but receive no further releases.

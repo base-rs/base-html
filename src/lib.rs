@@ -17,8 +17,7 @@
 //! # }).unwrap();
 //! ```
 //!
-#![doc = include_str!("../context/templates.md")]
-#![doc = include_str!("../context/streaming.md")]
+//! The [Template Syntax and Rendering](https://github.com/base-rs/base-web-html/blob/main/context/templates.md) guide describes the template language, and the [Streaming HTML](https://github.com/base-rs/base-web-html/blob/main/context/streaming.md) guide describes buffering, flushing, HTTP bodies, and cancellation. Both are included in the package under `context/`.
 
 mod blocking_writer;
 #[cfg(feature = "http-body")]
@@ -41,3 +40,15 @@ pub use html_writer::HtmlWriter;
 #[doc(hidden)]
 pub use html_writer::TemplateGuard;
 pub use trusted_html::TrustedHtml;
+
+#[cfg(doctest)]
+#[doc = include_str!("../context/templates.md")]
+struct TemplatesGuide;
+
+#[cfg(doctest)]
+#[doc = include_str!("../context/streaming.md")]
+struct StreamingGuide;
+
+#[cfg(doctest)]
+#[doc = include_str!("../readme.md")]
+struct Readme;
